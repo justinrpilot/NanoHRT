@@ -504,7 +504,7 @@ void BoostedEventShapeTagger::getJetValues( const pat::Jet& jet ){
     m_BESTvars["mass"]    = thisJet.M();
     m_BESTvars["SDmass"]  = jet.userFloat("ak8PFJetsPuppiSoftDropMass");
     if (m_usePuppi == 0) m_BESTvars["SDmass"]  = jet.userFloat("ak8PFJetsPuppiSoftDropMass");
-
+    
     m_BESTvars["tau32"]   = (tau2 > 1e-8) ? tau3/tau2 : 999.;
     m_BESTvars["tau21"]   = (tau1 > 1e-8) ? tau2/tau1 : 999.;
     m_BESTvars["q"]       = jetq;
