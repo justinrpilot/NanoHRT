@@ -1,4 +1,4 @@
-dnnFile BEST_6bin_PUPPI.json 
+dnnFile BEST_6bin_CHS.json 
 applyKinematicCuts true
 radiusSmall 0.4
 radiusLarge 0.8
@@ -7,3 +7,4 @@ jetSoftDropMassMin 40.0
 jetPtMin 500.0
 numSubjetsMin 2
 numDaughtersMin 2
+usePuppi 0

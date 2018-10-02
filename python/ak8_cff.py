@@ -39,7 +39,7 @@ def setupCustomizedAK8(process, runOnMC=False, path=None):
     process.boostedEventShapeJetsAK8Puppi = cms.EDProducer('BESTProducer',
         src=cms.InputTag('deepBoostedJetsAK8Puppi'),
         config_path=cms.untracked.FileInPath('PhysicsTools/NanoHRT/data/BEST/config.txt'),
-        dnn_path=cms.untracked.FileInPath('PhysicsTools/NanoHRT/data/BEST/BEST_6bin_PUPPI.json'),
+        dnn_path=cms.untracked.FileInPath('PhysicsTools/NanoHRT/data/BEST/BEST_6bin_CHS.json'),
     )
 
     # src

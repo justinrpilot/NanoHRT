@@ -66,6 +66,7 @@ BoostedEventShapeTagger::BoostedEventShapeTagger(const std::string& configFile, 
 
     m_jetChargeKappa     = std::stof(m_configurations.at("jetChargeKappa"));
     m_maxJetSize         = std::stoi(m_configurations.at("maxJetSize"));
+    m_usePuppi           = std::stoi(m_configurations.at("usePuppi"));
 
     // DNN material lwtnn interface
 //    std::string dnnFile = m_configurations.at("dnnFile");
@@ -149,7 +150,11 @@ void BoostedEventShapeTagger::getJetValues( const pat::Jet& jet ){
     float tau1 = jet.userFloat("NjettinessAK8Puppi:tau1");
     float tau2 = jet.userFloat("NjettinessAK8Puppi:tau2");
     float tau3 = jet.userFloat("NjettinessAK8Puppi:tau3");
-
+    if (m_usePuppi == 0){
+	tau1 = jet.userFloat("NjettinessAK8Puppi:tau1");
+    	tau2 = jet.userFloat("NjettinessAK8Puppi:tau2");
+    	tau3 = jet.userFloat("NjettinessAK8Puppi:tau3");
+    }
     // BEST vars
     fourv thisJet = jet.polarP4();
 
@@ -223,7 +228,8 @@ void BoostedEventShapeTagger::getJetValues( const pat::Jet& jet ){
         auto daughter = daughtersOfJet.at(i);
 
         float puppiWt = daughter->puppiWeight();
-        if (puppiWt*daughter->pt() < 0.5) continue;
+        if (!m_usePuppi) puppiWt = 1.0;
+	if (puppiWt*daughter->pt() < 0.5) continue;
 
         float dau_px = daughter->px();
         float dau_py = daughter->py();
@@ -496,7 +502,9 @@ void BoostedEventShapeTagger::getJetValues( const pat::Jet& jet ){
     m_BESTvars["et"]      = thisJet.Pt();
     m_BESTvars["eta"]     = thisJet.Rapidity();
     m_BESTvars["mass"]    = thisJet.M();
-    m_BESTvars["SDmass"]  = jet.mass();
+    m_BESTvars["SDmass"]  = jet.userFloat("ak8PFJetsPuppiSoftDropMass");
+    if (m_usePuppi == 0) m_BESTvars["SDmass"]  = jet.userFloat("ak8PFJetsPuppiSoftDropMass");
+
     m_BESTvars["tau32"]   = (tau2 > 1e-8) ? tau3/tau2 : 999.;
     m_BESTvars["tau21"]   = (tau1 > 1e-8) ? tau2/tau1 : 999.;
     m_BESTvars["q"]       = jetq;

@@ -57,6 +57,7 @@ class BoostedEventShapeTagger {
     float m_jetPtMin;           // [GeV] Jet pT minimum
     unsigned int m_numSubjetsMin;    // minimum number of subjets
     unsigned int m_numDaughtersMin;  // minimum number of daughters
+    unsigned int m_usePuppi;  //flag for PUPPI usage
 
     // boosting to rest frames
     float m_radiusSmall;        // re-clustering jets
